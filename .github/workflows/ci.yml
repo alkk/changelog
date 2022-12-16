@@ -23,15 +23,15 @@ jobs:
 
       - name: Generate PDF
         run: |
-          tools/prepare_md.py --oss | pandoc -f markdown+smart --pdf-engine=xelatex -H tools/header.tex tools/default.yaml - -V date="$(date "+%e %B %Y")" -o Changelog.pdf
+          tools/prepare_md.py | pandoc -f markdown+smart --pdf-engine=xelatex -H tools/header.tex tools/default.yaml - -V date="$(date "+%e %B %Y")" -o Changelog-EE.pdf
+          tools/prepare_md.py --oss | pandoc -f markdown+smart --pdf-engine=xelatex -H tools/header.tex tools/default.yaml - -V date="$(date "+%e %B %Y")" -o Changelog-OSS.pdf
 
       - name: Push PDF back to the repository
         run: |
-          ls -l changelog-oss.pdf
           git config --global user.name 'Alex Kirhenshtein'
           git config --global user.email 'alkk@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git checkout "${GITHUB_REF:11}"
-          git add Changelog.pdf
+          git add Changelog-EE.pdf Changelog-OSS.pdf
           git commit -am "Automatic commit"
           git push
