@@ -29,11 +29,7 @@ def render_version(records:list[str], header_offset:int = 0):
             print(line)
 
 def render(all_versions:list[str], oss:dict[str, list[str]], atm:dict[str, list[str]], cortex:dict[str, list[str]], ist:dict[str, list[str]]):
-    print(r"""---
-header-includes: |
-    \usepackage{fvextra}
-    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}, breaklines, breaknonspaceingroup, breakanywhere}
----
+    print(r"""
 
 \pagebreak
 
